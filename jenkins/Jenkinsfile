@@ -1,14 +1,14 @@
 pipeline {
     agent any
     stages {
-        stage('Clonar el repositorio') {
+        stage('Clone') {
             steps {
                 git 'https://github.com/CliberCastillo/simple-java.git'
             }
         }
-        stage('Mostrar mensaje'){
+        stage('Containers'){
             steps {
-                echo 'Mensaje de ejemplo'
+                sh 'docker ps'
             }
         }
     }
