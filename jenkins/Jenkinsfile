@@ -6,6 +6,11 @@ pipeline {
                 git 'https://github.com/CliberCastillo/simple-java.git'
             }
         }
+        stage('list') {
+            steps {
+                sh 'ls'
+            }
+        }
         stage('Containers'){
             steps {
                 sh 'docker ps'
