@@ -13,7 +13,7 @@ pipeline {
         }
         stage('build') {
             steps {
-                sh 'jenkins/scripts/mvn.sh'
+                sh './jenkins/scripts/mvn.sh'
             }
         }
         stage('list-build') {
