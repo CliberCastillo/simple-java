@@ -17,7 +17,10 @@ pipeline {
         }
         stage('build') {
             steps {
-                sh 'docker run --rm -v $PWD:/app -w /app maven:3.8.4 mvn clean install'
+                sh '''
+                    docker run --rm -v $PWD:/app -w /app maven:3.8.4 mvn clean install
+                    docker run --rm -v $PWD:/app -w /app maven:3.8.4 ls /app
+                '''
             }
         }
         stage('list-build') {
