@@ -11,6 +11,16 @@ pipeline {
                 sh 'ls'
             }
         }
+        stage('build') {
+            steps {
+                sh 'jenkins/scripts/mvn.sh'
+            }
+        }
+        stage('list-build') {
+            steps {
+                sh 'ls'
+            }
+        }
         stage('Containers'){
             steps {
                 sh 'docker ps'
