@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Otorgar permisos de ejecución al script
+chmod +x "$0"
+
 echo "****************"
 echo "* Building jar!*"
 echo "****************"
