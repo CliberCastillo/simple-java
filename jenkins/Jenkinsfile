@@ -8,7 +8,11 @@ pipeline {
         }
         stage('list') {
             steps {
-                sh 'ls'
+                sh '''
+                    ls
+                    cd ..
+                    ls
+                '''
             }
         }
         stage('build') {
