@@ -1,37 +1,31 @@
+
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'maven:3-jdk-8'
+            args '-v /root/.m2:/root/.m2'
+        }
+    }
+    stage('Clone') {
+        steps {
+            git 'https://github.com/CliberCastillo/simple-java.git'
+        }
+    }
+    stage('list') {
+        steps {
+            sh 'ls'
+        }
+    }
     stages {
-        stage('Clone') {
+        stage('Build') {
             steps {
-                git 'https://github.com/CliberCastillo/simple-java.git'
+                sh 'mvn clean install'
             }
         }
-        stage('list') {
-            steps {
-                sh '''
-                    ls
-                    cd ..
-                    ls
-                '''
-            }
-        }
-        stage('build') {
-            steps {
-                sh '''
-                    docker run --rm -v $PWD:/app -w /app maven:3.8.4 mvn clean install
-                    docker run --rm -v $PWD:/app -w /app maven:3.8.4 ls /app
-                '''
-            }
-        }
-        stage('list-build') {
-            steps {
-                sh 'ls'
-            }
-        }
-        stage('Containers'){
-            steps {
-                sh 'docker ps'
-            }
+    }
+    stage('list') {
+        steps {
+            sh 'ls'
         }
     }
 }
