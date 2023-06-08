@@ -22,9 +22,12 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
-        stage('lists') {
+        stage('DockerBuild') {
             steps {
-                sh 'ls'
+                sh '''
+                    docker build -t clibercastillo/simple-java:latest .
+                    docker image ls
+                    '''
             }
         }
     }
