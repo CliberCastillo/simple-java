@@ -24,10 +24,9 @@ pipeline {
         }
         stage('DockerBuild') {
             steps {
-                sh '''
-                    docker build -t clibercastillo/simple-java:latest .
-                    docker image ls
-                    '''
+                script {
+                    docker.build('clibercastillo/simple-java:latest', '.')
+                }
             }
         }
     }
