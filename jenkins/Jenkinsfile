@@ -1,4 +1,3 @@
-
 pipeline {
     agent none
 
@@ -15,16 +14,11 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
-        stage('ls'){
-            agent any
-            steps {
-                sh 'ls'
-            }
-        }
-        stage('BuildDocker') {
+        stage('Generate Image') {
             agent any
             steps {
                 sh 'docker build -t clibercastillo/simple-java:latest .'
+                sh 'docker container ls'
             }
         }
     }
