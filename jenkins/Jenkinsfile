@@ -6,26 +6,28 @@ pipeline {
             args '-v /root/.m2:/root/.m2'
         }
     }
-    stage('Clone') {
-        steps {
-            git 'https://github.com/CliberCastillo/simple-java.git'
-        }
-    }
-    stage('list') {
-        steps {
-            sh 'ls'
-        }
-    }
     stages {
-        stage('Build') {
+        stage('Clone') {
             steps {
-                sh 'mvn clean install'
+                git 'https://github.com/CliberCastillo/simple-java.git'
             }
         }
-    }
-    stage('lists') {
-        steps {
-            sh 'ls'
+        stage('list') {
+            steps {
+                sh 'ls'
+            }
+        }
+        stages {
+            stage('Build') {
+                steps {
+                    sh 'mvn clean install'
+                }
+            }
+        }
+        stage('lists') {
+            steps {
+                sh 'ls'
+            }
         }
     }
 }
