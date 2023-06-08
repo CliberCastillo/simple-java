@@ -1,30 +1,24 @@
 
 pipeline {
-    agent {
-        docker {
-            image 'maven:3-openjdk-11'
-            args '-v /root/.m2:/root/.m2'
-        }
-    }
+    agent none
+
     stages {
-        stage('Clone') {
+        stage('Build') {
+            agent {
+                docker {
+                    image 'maven:3-openjdk-11'
+                    args '-v /root/.m2:/root/.m2'
+                }
+            }
             steps {
                 git 'https://github.com/CliberCastillo/simple-java.git'
-            }
-        }
-        stage('list') {
-            steps {
-                sh 'ls'
-            }
-        }
-        stage('Build') {
-            steps {
                 sh 'mvn clean install'
             }
         }
         stage('Run') {
+            agent any
             steps {
-                sh 'java -jar target/my-app-1.0-SNAPSHOT.jar'
+                sh 'docker ps'
             }
         }
     }
