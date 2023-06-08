@@ -25,7 +25,24 @@ pipeline {
             steps {
                 sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
                 sh 'docker push clibercastillo/simple-java:latest'
+                script {
+                    def result = sh(returnStatus: true, script: 'docker images -q clibercastillo/simple-java:latest')
+                    if (result == 0) {
+                        slackSend(channel: '#alertas', message: 'La imagen se ha subido correctamente a Docker Hub.')
+                    } else {
+                        slackSend(channel: '#alertas', message: 'Error al subir la imagen a Docker Hub.')
+                    }
+                }
             }
+        }
+    }
+
+    post {
+        success {
+            slackSend(channel: '#alertas', message: 'El pipeline ha sido completado exitosamente.')
+        }
+        failure {
+            slackSend(channel: '#alertas', message: 'El pipeline ha fallado.')
         }
     }
 }
