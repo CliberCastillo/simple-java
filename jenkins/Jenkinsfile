@@ -15,10 +15,16 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
-        stage('Run') {
+        stage('ls'){
             agent any
             steps {
-                sh 'docker ps'
+                sh 'ls'
+            }
+        }
+        stage('BuildDocker') {
+            agent any
+            steps {
+                sh 'docker build -t clibercastillo/simple-java:latest .'
             }
         }
     }
