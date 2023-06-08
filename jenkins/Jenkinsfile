@@ -39,7 +39,7 @@ pipeline {
 
     post {
         success {
-            slackSend(channel: '#alertas', message: 'El pipeline ha sido completado exitosamente.')
+            slackSend(channel: '#alertas', message: 'El pipeline ha sido completado exitosamente, publicando contenedor a clúster de Kubernetes en Amazon EKS.')
         }
         failure {
             slackSend(channel: '#alertas', message: 'El pipeline ha fallado.')
