@@ -22,11 +22,9 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
-        stage('DockerBuild') {
+        stage('Run') {
             steps {
-                script {
-                    docker.build('clibercastillo/simple-java:latest', '.')
-                }
+                sh 'java -jar target/my-app-1.0-SNAPSHOT.jar'
             }
         }
     }
